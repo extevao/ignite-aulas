@@ -1,7 +1,6 @@
-import React from 'react'
-
+import { RepositoryList } from './components/RespositoryList'
 import './styles/global.scss'
 
 export function App() {
-  return <h1> Hello Wolrd</h1>
+  return <RepositoryList />
 }
