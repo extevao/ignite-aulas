@@ -4,8 +4,15 @@ import '../styles/repositories.scss'
 
 import { RespositoryItem } from './RespositoryItem'
 
+interface Respository {
+  id: string;
+  name: string;
+  description: string;
+  html_url: string;
+}
+
 export function RepositoryList() {
-  const [respositories, setRespositories] = useState([])
+  const [respositories, setRespositories] = useState<Respository[]>([])
 
   useEffect(() => {
     fetch('https://api.github.com/users/extevao/repos')
