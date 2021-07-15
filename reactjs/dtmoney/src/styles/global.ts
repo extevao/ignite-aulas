@@ -12,11 +12,11 @@ export const GlobalStyle = createGlobalStyle`
 
     --text-title: #363F5F;
     --text-body: #969CB3;
-
-    --background: #F0F2F5;
+    
     --shape: #ffffff;
   }
 
+  //#E5E5E5
   * {
     margin: 0;
     padding: 0;
@@ -38,7 +38,7 @@ export const GlobalStyle = createGlobalStyle`
   // REM = 1 rem = font-size
 
   body {
-    background-color: var(---background);
+    background: var(--background);
     -webkit-font-smoothing: antialiased;
   }
 
