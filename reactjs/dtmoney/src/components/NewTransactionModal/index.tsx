@@ -4,6 +4,7 @@ import Modal from 'react-modal'
 import closeImgm from '../../assets/close.svg'
 import incomeImg from '../../assets/income.svg'
 import outcomeImg from '../../assets/outcome.svg'
+import { api } from '../../services';
 
 import { Container, TransactionTypeContainer, RadioBox } from './styles';
 
@@ -20,15 +21,17 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
   const [value, setValue] = useState(0)
   const [category, setCategory] = useState('')
 
-  function hancleCreateNewTransaction(event: FormEvent) {
+  async function hancleCreateNewTransaction(event: FormEvent) {
     event.preventDefault()
 
-    console.log({
+    const data = {
       title,
       value,
       category,
       type
-    })
+    }
+
+    await api.post('/transactions', data)
   }
 
   return (
