@@ -5,30 +5,30 @@ import { createServer, Model } from 'miragejs'
 
 import { App } from './App';
 
-const transactions = [
+const transactionsSeed = [
   {
     id: 1,
     title: 'Desenvolvimento',
-    value: 120000,
+    amount: 120000,
     type: 'deposit',
     category: 'Desenvolvimento',
-    createdAt: new Date()
+    createdAt: new Date('2021-02-21 09:00:00')
   },
   {
     id: 2,
     title: 'Aluguel',
-    value: 1100,
+    amount: 1100,
     type: 'withdraw',
     category: 'Casa',
-    createdAt: new Date()
+    createdAt: new Date('2021-05-10 11:00:00')
   },
   {
     id: 3,
     title: 'Concerto Bike',
-    value: 130,
+    amount: 130,
     type: 'withdraw',
     category: 'Bike',
-    createdAt: new Date()
+    createdAt: new Date('2021-05-17 15:23:00')
   },
   {
     id: 4,
@@ -36,7 +36,7 @@ const transactions = [
     amount: 400,
     type: 'deposit',
     category: 'Food',
-    createdAt: new Date()
+    createdAt: new Date('2021-05-22 20:13:00')
   }
 ]
 
@@ -44,6 +44,12 @@ const transactions = [
 createServer({
   models: {
     transaction: Model
+  },
+
+  seeds(server) {
+    server.db.loadData({
+      transactions: transactionsSeed
+    })
   },
 
   routes() {
