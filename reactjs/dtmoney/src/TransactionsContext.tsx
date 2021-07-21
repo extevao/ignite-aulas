@@ -10,11 +10,19 @@ interface Transaction {
   createdAt: string;
 }
 
+// type TransactionInput = Omit<Transaction, 'id' | 'createdAt'>
+type TransactionInput = Pick<Transaction, 'title' | 'amount' | 'type' | 'category'>
+
 interface TransactionsProviderProps {
   children: ReactNode
 }
 
-export const TransactionsContext = createContext<Transaction[]>([]);
+interface TransactionsContextData {
+  transactions: Transaction[];
+  createTransaction: (transaction: TransactionInput) => Promise<void>
+}
+
+export const TransactionsContext = createContext<TransactionsContextData>({} as TransactionsContextData);
 
 export function TransactionsProvider({ children }: TransactionsProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
@@ -24,9 +32,13 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
       .then(({ data }) => setTransactions(data.transactions))
   }, [])
 
+  async function createTransaction(transactionInput: TransactionInput) {
+    await api.post('/transactions', transactionInput)
+  }
+
   return (
-    <TransactionsContext.Provider value={transactions}>
+    <TransactionsContext.Provider value={{ transactions, createTransaction }}>
       {children}
-    </TransactionsContext.Provider>
+    </TransactionsContext.Provider >
   )
 }
