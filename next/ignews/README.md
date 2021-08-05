@@ -3,4 +3,4 @@
 
 
 // Comando para o stripe cli
-// $ stripe listen --foward-to localhost:3000/api/webhooks
+// stripe listen --forward-to localhost:3000/api/webhooks
