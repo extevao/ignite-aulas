@@ -13,15 +13,19 @@ import {
   Th,
   Thead,
   Tr,
-  useBreakpointValue
+  useBreakpointValue,
+  Link as ChakraLink
 } from "@chakra-ui/react";
-import Link from "next/link";
+import LinkLink from "next/link";
 import { useState } from "react";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
+import { QueryClient } from "react-query";
 import { Header } from "../../components/Header";
 import { Pagination } from "../../components/Pagination";
 import { Sidebar } from "../../components/Sidebar";
+import { api } from "../../services/api";
 import { useUsers } from "../../services/hooks/useUsers";
+import { queryClient } from "../../services/queryClient";
 
 export default function UserList() {
   const [page, setPage] = useState(1)
@@ -31,6 +35,17 @@ export default function UserList() {
     base: false,
     lg: true
   })
+
+  async function handlePrefetchUser(userId: string) {
+    console.log(userId)
+    await queryClient.prefetchQuery(['user', userId], async () => {
+      const response = await api.get(`users/${userId}`)
+
+      return response.data;
+    }, {
+      staleTime: 1000 * 60 * 10 //10 minutos
+    })
+  }
 
   console.log(page)
 
@@ -48,7 +63,7 @@ export default function UserList() {
               {!isLoading && isFetching && (<Spinner size="sm" color="gray.500" ml="4" />)}
             </Heading>
 
-            <Link href="/users/create" passHref>
+            <LinkLink href="/users/create" passHref>
               <Button
                 as="a"
                 size="sm"
@@ -59,7 +74,7 @@ export default function UserList() {
               >
                 Criar novo
               </Button>
-            </Link>
+            </LinkLink>
           </Flex>
           {
             isLoading
@@ -99,7 +114,9 @@ export default function UserList() {
                               </Td>
                               <Td>
                                 <Box>
-                                  <Text fontWeight="bold">{user.name}</Text>
+                                  <ChakraLink color="purple.400" onMouseEnter={() => handlePrefetchUser(user.id)}>
+                                    <Text fontWeight="bold">{user.name}</Text>
+                                  </ChakraLink>
                                   <Text fontSize="small" color="gray.300">{user.email}</Text>
                                 </Box>
                               </Td>

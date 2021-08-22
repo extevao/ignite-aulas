@@ -25,7 +25,9 @@ export function Profile({ showProfileData }: ProfileProps) {
       <Avatar
         size="md"
         name="Estevão B L Vasques"
-        src="https://github.com/extevao.png" />
+        src="https://github.com/extevao.png"
+
+      />
     </Flex>
   )
 }
