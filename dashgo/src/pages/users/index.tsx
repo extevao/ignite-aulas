@@ -37,7 +37,6 @@ export default function UserList() {
   })
 
   async function handlePrefetchUser(userId: string) {
-    console.log(userId)
     await queryClient.prefetchQuery(['user', userId], async () => {
       const response = await api.get(`users/${userId}`)
 
@@ -46,8 +45,6 @@ export default function UserList() {
       staleTime: 1000 * 60 * 10 //10 minutos
     })
   }
-
-  console.log(page)
 
   return (
     <Box>
