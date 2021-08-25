@@ -2,8 +2,8 @@ import { FormEvent, useContext, useState } from "react"
 import { AuthContext } from "../context/AuthContext"
 
 export default function Home() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('diego@rocketseat.team')
+  const [password, setPassword] = useState('123456')
 
   const { signIn } = useContext(AuthContext)
 
